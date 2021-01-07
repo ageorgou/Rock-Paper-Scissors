@@ -15,7 +15,7 @@ print("Welcome to our game")
 count = 1
 while not isGameOver:
     print("Choose either rock,paper or scissors")
-    user_input = input()
+    keyboard_input = input()
     count = count + 1
     
     """
@@ -23,33 +23,20 @@ while not isGameOver:
     into a integer for later comparison
     """
     hasUserChosenCorrectly = False
-    if user_input == Hand.rock.name:
-        hasUserChosenCorrectly = True
-        user_input = Hand.rock
-        print("You have chosen rock")
-    elif user_input == Hand.paper.name:
-        hasUserChosenCorrectly = True
-        user_input = Hand.paper
-        print("You have chosen paper")
-    elif user_input == Hand.scissors.name:
-        hasUserChosenCorrectly = True
-        user_input = Hand.scissors
-        print("You have chosen scissors")
-    else: 
+    for option in Hand:
+        if keyboard_input == option.name:
+            hasUserChosenCorrectly = True
+            user_input = option
+            print("You have chosen {}".format(option.name))
+    if not hasUserChosenCorrectly: 
         if count > 3:
             isGameOver = True
         else:
             print("Choose again")
-    if hasUserChosenCorrectly == True:
+    if hasUserChosenCorrectly:
         # Second player choice
-        computer_input = random.randint(1,3)
-
-        if computer_input == Hand.rock:
-            print("The second player has chosen rock")
-        elif computer_input == Hand.paper:
-            print("The second player has chosen paper")
-        else:
-            print ("The second player has chosen scissors")
+        computer_input = random.choice(list(Hand))
+        print("The second player has chosen {}".format(computer_input.name))
 
         # Finding winner
 
