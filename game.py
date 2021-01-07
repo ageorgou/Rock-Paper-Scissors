@@ -17,11 +17,8 @@ class Result(IntEnum):
 
 rules = {
     (Hand.paper, Hand.rock): Result.win,
-    (Hand.rock, Hand.paper): Result.loss,
     (Hand.scissors, Hand.paper): Result.win,
-    (Hand.paper, Hand.scissors): Result.loss,
     (Hand.rock, Hand.scissors): Result.win,
-    (Hand.scissors, Hand.rock): Result.loss
 }
 
 def decide_result(player, opponent):
@@ -29,7 +26,12 @@ def decide_result(player, opponent):
 
     if player == opponent:
         return Result.draw
-    return rules[(player, opponent)]
+    if (player, opponent) in rules:
+        return rules[(player, opponent)]
+    else:
+        # Switch the players around, and get the opposite result
+        opposite_result = rules[(opponent, player)]
+        return Result.loss if opposite_result is Result.win else Result.win
 
 isGameOver = False
 
