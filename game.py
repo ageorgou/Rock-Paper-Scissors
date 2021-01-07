@@ -17,24 +17,23 @@ class Result(IntEnum):
 
 
 def decide_result(player, opponent):
-    if player == Hand.rock and opponent == Hand.rock :
+    assert player in Hand and opponent in Hand
+
+    if player == opponent:
         return Result.draw
-    elif player == Hand.rock and opponent == Hand.paper :
+    
+    if player == Hand.rock and opponent == Hand.paper :
         return Result.loss
     elif player == Hand.rock and opponent == Hand.scissors :
         return Result.win
     elif player == Hand.paper and opponent == Hand.rock :
         return Result.win
-    elif player == Hand.paper and opponent == Hand.paper :
-       return Result.draw
     elif player == Hand.paper and opponent == Hand.scissors :
         return Result.loss
     elif player == Hand.scissors and opponent == Hand.rock :
         return Result.loss
     elif player == Hand.scissors and opponent == Hand.paper :
         return Result.win
-    elif player == Hand.scissors and opponent == Hand.scissors :
-        return Result.draw
 
 isGameOver = False
 
