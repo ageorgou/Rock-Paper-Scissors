@@ -9,6 +9,33 @@ class Hand(IntEnum):
     paper=2
     scissors=3
 
+
+class Result(IntEnum):
+    win = 1
+    loss = 2
+    draw = 3
+
+
+def decide_result(player, opponent):
+    if player == Hand.rock and opponent == Hand.rock :
+        return Result.draw
+    elif player == Hand.rock and opponent == Hand.paper :
+        return Result.loss
+    elif player == Hand.rock and opponent == Hand.scissors :
+        return Result.win
+    elif player == Hand.paper and opponent == Hand.rock :
+        return Result.win
+    elif player == Hand.paper and opponent == Hand.paper :
+       return Result.draw
+    elif player == Hand.paper and opponent == Hand.scissors :
+        return Result.loss
+    elif player == Hand.scissors and opponent == Hand.rock :
+        return Result.loss
+    elif player == Hand.scissors and opponent == Hand.paper :
+        return Result.win
+    elif player == Hand.scissors and opponent == Hand.scissors :
+        return Result.draw
+
 isGameOver = False
 
 print("Welcome to our game")
@@ -39,25 +66,16 @@ while not isGameOver:
         print("The second player has chosen {}".format(computer_input.name))
 
         # Finding winner
+        result = decide_result(user_input, computer_input)
+        assert result in Result
+        if result == Result.draw:
+            message = "Sorry, its a draw. No winner :("
+        elif result == Result.loss:
+            message = "I am sorry, the second player has won"
+        else:
+            message = "You have won the game!! :)"
+        print(message)
 
-        if user_input == Hand.rock and computer_input == Hand.rock :
-            print("Sorry, its a draw. No winner :(")
-        elif user_input == Hand.rock and computer_input == Hand.paper :
-            print("I am sorry, the second player has won")
-        elif user_input == Hand.rock and computer_input == Hand.scissors :
-            print("You have won the game!! :)")
-        elif user_input == Hand.paper and computer_input == Hand.rock :
-             print("You have won the game!! :)")
-        elif user_input == Hand.paper and computer_input == Hand.paper :
-             print("Sorry, its a draw. No winner :(")
-        elif user_input == Hand.paper and computer_input == Hand.scissors :
-            print("I am sorry, the second player has won")
-        elif user_input == Hand.scissors and computer_input == Hand.rock :
-             print("I am sorry, the second player has won")
-        elif user_input == Hand.scissors and computer_input == Hand.paper :
-             print("You have won the game!! :)")
-        elif user_input == Hand.scissors and computer_input == Hand.scissors :
-            print("Sorry, its a draw. No winner :(")
         print("Type stop to end the game otherwise press enter to play again")
         another_input = input()
         if(another_input == "stop"):
