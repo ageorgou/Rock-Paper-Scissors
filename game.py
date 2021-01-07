@@ -15,25 +15,21 @@ class Result(IntEnum):
     loss = 2
     draw = 3
 
+rules = {
+    (Hand.paper, Hand.rock): Result.win,
+    (Hand.rock, Hand.paper): Result.loss,
+    (Hand.scissors, Hand.paper): Result.win,
+    (Hand.paper, Hand.scissors): Result.loss,
+    (Hand.rock, Hand.scissors): Result.win,
+    (Hand.scissors, Hand.rock): Result.loss
+}
 
 def decide_result(player, opponent):
     assert player in Hand and opponent in Hand
 
     if player == opponent:
         return Result.draw
-    
-    if player == Hand.rock and opponent == Hand.paper :
-        return Result.loss
-    elif player == Hand.rock and opponent == Hand.scissors :
-        return Result.win
-    elif player == Hand.paper and opponent == Hand.rock :
-        return Result.win
-    elif player == Hand.paper and opponent == Hand.scissors :
-        return Result.loss
-    elif player == Hand.scissors and opponent == Hand.rock :
-        return Result.loss
-    elif player == Hand.scissors and opponent == Hand.paper :
-        return Result.win
+    return rules[(player, opponent)]
 
 isGameOver = False
 
